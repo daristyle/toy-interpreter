@@ -6,3 +6,9 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+# append to .gitignore
+.idea/
+*.iml
+out/
+.vscode/
+.DS_Store
