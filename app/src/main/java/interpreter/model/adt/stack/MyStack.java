@@ -1,4 +1,4 @@
-package interpreter.model.adt;
+package interpreter.model.adt.stack;
 
 import interpreter.exceptions.ADTException;
 
