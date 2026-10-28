@@ -1,6 +1,6 @@
 package interpreter.model.adt.stack;
 
-import interpreter.exceptions.ADTException;
+import interpreter.exceptions.StackException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ class MyStackTest{
     }
 
     @Test
-    void popReturnsElementsInLIFOOrder() throws ADTException{
+    void popReturnsElementsInLIFOOrder() throws StackException{
         stack.push(1);
         stack.push(2);
         stack.push(3);
@@ -37,7 +37,7 @@ class MyStackTest{
     }
 
     @Test
-    void peekReturnsTopWithoutRemovingIt() throws ADTException{
+    void peekReturnsTopWithoutRemovingIt() throws StackException{
         stack.push(1);
         stack.push(2);
         assertEquals(2, stack.peek());
@@ -47,21 +47,21 @@ class MyStackTest{
 
     @Test
     void popOnEmptyStackThrows(){
-        ADTException e = assertThrows(ADTException.class, () -> stack.pop());
+        StackException e = assertThrows(StackException.class, () -> stack.pop());
         assertEquals("Stack is empty", e.getMessage());
     }
 
     @Test
     void peekOnEmptyStackThrows(){
-        ADTException e = assertThrows(ADTException.class, () -> stack.peek());
+        StackException e = assertThrows(StackException.class, () -> stack.peek());
         assertEquals("Stack is empty", e.getMessage());
     }
 
     @Test
-    void popAfterAllElementsRemovedThrows() throws ADTException{
+    void popAfterAllElementsRemovedThrows() throws StackException{
         stack.push(1);
         stack.pop();
-        assertThrows(ADTException.class, () -> stack.pop());
+        assertThrows(StackException.class, () -> stack.pop());
     }
 
     @Test
@@ -70,11 +70,11 @@ class MyStackTest{
         stack.push(2);
         stack.clear();
         assertTrue(stack.isEmpty());
-        assertThrows(ADTException.class, () -> stack.peek());
+        assertThrows(StackException.class, () -> stack.peek());
     }
 
     @Test
-    void stackIsUsableAfterClear() throws ADTException{
+    void stackIsUsableAfterClear() throws StackException{
         stack.push(1);
         stack.clear();
         stack.push(2);

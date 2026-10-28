@@ -1,10 +1,10 @@
 package interpreter.model.adt.list;
 
-import interpreter.exceptions.ADTException;
+import interpreter.exceptions.ListException;
 
 public interface IList<T>{
     void add(T value);
-    T get(int index) throws ADTException;
+    T get(int index) throws ListException;
     int size();
     void clear();
 }

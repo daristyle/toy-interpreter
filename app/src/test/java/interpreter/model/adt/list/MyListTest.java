@@ -1,6 +1,6 @@
 package interpreter.model.adt.list;
 
-import interpreter.exceptions.ADTException;
+import interpreter.exceptions.ListException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,7 +30,7 @@ class MyListTest{
     }
 
     @Test
-    void getReturnsElementsInInsertionOrder() throws ADTException{
+    void getReturnsElementsInInsertionOrder() throws ListException{
         list.add("a");
         list.add("b");
         list.add("c");
@@ -40,7 +40,7 @@ class MyListTest{
     }
 
     @Test
-    void getDoesNotRemoveElement() throws ADTException{
+    void getDoesNotRemoveElement() throws ListException{
         list.add("a");
         list.get(0);
         assertEquals(1, list.size());
@@ -48,7 +48,7 @@ class MyListTest{
     }
 
     @Test
-    void allowsDuplicates() throws ADTException{
+    void allowsDuplicates() throws ListException{
         list.add("a");
         list.add("a");
         assertEquals(2, list.size());
@@ -57,7 +57,7 @@ class MyListTest{
 
     @Test
     void getOnEmptyListThrows(){
-        ADTException e = assertThrows(ADTException.class, () -> list.get(0));
+        ListException e = assertThrows(ListException.class, () -> list.get(0));
         assertEquals("Index out of bounds", e.getMessage());
     }
 
@@ -66,7 +66,7 @@ class MyListTest{
     void getOutOfBoundsThrows(int index){
         list.add("a");
         list.add("b");
-        assertThrows(ADTException.class, () -> list.get(index));
+        assertThrows(ListException.class, () -> list.get(index));
     }
 
     @Test
@@ -75,11 +75,11 @@ class MyListTest{
         list.add("b");
         list.clear();
         assertEquals(0, list.size());
-        assertThrows(ADTException.class, () -> list.get(0));
+        assertThrows(ListException.class, () -> list.get(0));
     }
 
     @Test
-    void listIsUsableAfterClear() throws ADTException{
+    void listIsUsableAfterClear() throws ListException{
         list.add("a");
         list.clear();
         list.add("b");

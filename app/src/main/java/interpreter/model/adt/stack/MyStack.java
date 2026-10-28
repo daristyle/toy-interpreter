@@ -1,6 +1,6 @@
 package interpreter.model.adt.stack;
 
-import interpreter.exceptions.ADTException;
+import interpreter.exceptions.StackException;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -14,14 +14,14 @@ public class MyStack<T> implements IStack<T>{
     }
 
     @Override
-    public T pop() throws ADTException{
-        if(stack.isEmpty()) throw new ADTException("Stack is empty");
+    public T pop() throws StackException{
+        if(stack.isEmpty()) throw new StackException("Stack is empty");
         return stack.pop();
     }
 
     @Override
-    public T peek() throws ADTException{
-        if(stack.isEmpty()) throw new ADTException("Stack is empty");
+    public T peek() throws StackException{
+        if(stack.isEmpty()) throw new StackException("Stack is empty");
         return stack.peek();
     }
 
