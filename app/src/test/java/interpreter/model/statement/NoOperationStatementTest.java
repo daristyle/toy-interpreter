@@ -2,6 +2,7 @@ package interpreter.model.statement;
 
 import interpreter.exceptions.MyException;
 import interpreter.model.ProgramState;
+import interpreter.model.TestProgramStates;
 import interpreter.model.value.IntValue;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class NoOperationStatementTest{
     @Test
     void returnsSameProgramState(){
-        ProgramState programState = new ProgramState();
+        ProgramState programState = TestProgramStates.emptyProgramState();
         assertSame(programState, new NoOperationStatement().execute(programState));
     }
 
     @Test
     void leavesProgramStateUnchanged() throws MyException{
-        ProgramState programState = new ProgramState();
+        ProgramState programState = TestProgramStates.emptyProgramState();
         programState.getSymTable().put("x", new IntValue(1));
 
         new NoOperationStatement().execute(programState);

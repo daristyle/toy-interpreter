@@ -2,6 +2,7 @@ package interpreter.model.statement;
 
 import interpreter.exceptions.MyException;
 import interpreter.model.ProgramState;
+import interpreter.model.TestProgramStates;
 import interpreter.model.expression.ValueExpression;
 import interpreter.model.expression.VariableExpression;
 import interpreter.model.value.IntValue;
@@ -17,7 +18,7 @@ class CompoundStatementTest{
 
     @BeforeEach
     void setUp(){
-        programState = new ProgramState();
+        programState = TestProgramStates.emptyProgramState();
     }
 
     @Test

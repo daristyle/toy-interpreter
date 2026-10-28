@@ -3,6 +3,7 @@ package interpreter.model.statement;
 import interpreter.exceptions.MyException;
 import interpreter.exceptions.VariableAlreadyDeclaredException;
 import interpreter.model.ProgramState;
+import interpreter.model.TestProgramStates;
 import interpreter.model.expression.VariableExpression;
 import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
@@ -18,7 +19,7 @@ class VariableDeclarationStatementTest{
 
     @BeforeEach
     void setUp(){
-        programState = new ProgramState();
+        programState = TestProgramStates.emptyProgramState();
     }
 
     @Test

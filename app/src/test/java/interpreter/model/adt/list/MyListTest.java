@@ -86,4 +86,37 @@ class MyListTest{
         assertEquals(1, list.size());
         assertEquals("b", list.get(0));
     }
+
+    @Test
+    void toStringOfEmptyList(){
+        assertEquals("{}", list.toString());
+    }
+
+    @Test
+    void toStringOfSingleElement(){
+        list.add("a");
+        assertEquals("{a}", list.toString());
+    }
+
+    @Test
+    void toStringListsElementsInInsertionOrder(){
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        assertEquals("{a; b; c}", list.toString());
+    }
+
+    @Test
+    void toStringShowsDuplicates(){
+        list.add("a");
+        list.add("a");
+        assertEquals("{a; a}", list.toString());
+    }
+
+    @Test
+    void toStringAfterClear(){
+        list.add("a");
+        list.clear();
+        assertEquals("{}", list.toString());
+    }
 }

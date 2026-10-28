@@ -11,9 +11,20 @@ import interpreter.model.value.IValue;
 
 
 public class ProgramState{
-    private final IStack<IStatement> execStack = new MyStack<>();
-    private final IDictionary<String, IValue> symTable = new MyDictionary<>();
-    private final IList<IValue> outList = new MyList<>();
+    private final IStack<IStatement> execStack;
+    private final IDictionary<String, IValue> symTable;
+    private final IList<IValue> outList;
+    private final IStatement originalProgram;
+
+    ProgramState(IStack<IStatement> execStack, IDictionary<String, IValue> symTable, IList<IValue> outList,
+                 IStatement originalProgram){
+        this.execStack = execStack;
+        this.symTable = symTable;
+        this.outList = outList;
+        this.originalProgram = originalProgram;
+
+        this.execStack.push(this.originalProgram);
+    }
 
     public IStack<IStatement> getExecStack(){
         return execStack;
@@ -25,5 +36,14 @@ public class ProgramState{
 
     public IList<IValue> getOutList(){
         return outList;
+    }
+
+    public IStatement getOriginalProgram(){
+        return originalProgram;
+    }
+
+    @Override
+    public String toString(){
+        return "ExecStack: " + execStack + "\nSymTable: " + symTable + "\nOutList: " + outList;
     }
 }

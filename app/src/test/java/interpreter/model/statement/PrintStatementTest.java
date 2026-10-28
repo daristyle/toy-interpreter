@@ -4,6 +4,7 @@ import interpreter.exceptions.ArithmeticException;
 import interpreter.exceptions.MyException;
 import interpreter.exceptions.UndefinedVariableException;
 import interpreter.model.ProgramState;
+import interpreter.model.TestProgramStates;
 import interpreter.model.expression.ArithmeticExpression;
 import interpreter.model.expression.ArithmeticOperation;
 import interpreter.model.expression.ValueExpression;
@@ -20,7 +21,7 @@ class PrintStatementTest{
 
     @BeforeEach
     void setUp(){
-        programState = new ProgramState();
+        programState = TestProgramStates.emptyProgramState();
     }
 
     @Test

@@ -80,4 +80,39 @@ class MyStackTest{
         stack.push(2);
         assertEquals(2, stack.pop());
     }
+
+    @Test
+    void toStringOfEmptyStack(){
+        assertEquals("{}", stack.toString());
+    }
+
+    @Test
+    void toStringOfSingleElement(){
+        stack.push(1);
+        assertEquals("{1}", stack.toString());
+    }
+
+    @Test
+    void toStringListsTopFirst(){
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        assertEquals("{3| 2| 1}", stack.toString());
+    }
+
+    @Test
+    void toStringReflectsPop() throws StackException{
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.pop();
+        assertEquals("{2| 1}", stack.toString());
+    }
+
+    @Test
+    void toStringAfterClear(){
+        stack.push(1);
+        stack.clear();
+        assertEquals("{}", stack.toString());
+    }
 }

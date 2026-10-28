@@ -5,6 +5,7 @@ import interpreter.exceptions.AssignmentStatementException;
 import interpreter.exceptions.MyException;
 import interpreter.exceptions.UndefinedVariableException;
 import interpreter.model.ProgramState;
+import interpreter.model.TestProgramStates;
 import interpreter.model.expression.ArithmeticExpression;
 import interpreter.model.expression.ArithmeticOperation;
 import interpreter.model.expression.IExpression;
@@ -22,7 +23,7 @@ class AssignmentStatementTest{
 
     @BeforeEach
     void setUp(){
-        programState = new ProgramState();
+        programState = TestProgramStates.emptyProgramState();
     }
 
     private static IExpression constant(int n){

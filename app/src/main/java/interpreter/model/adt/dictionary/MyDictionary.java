@@ -1,6 +1,7 @@
 package interpreter.model.adt.dictionary;
 
 import java.util.HashMap;
+import java.util.StringJoiner;
 
 public class MyDictionary<K,V> implements IDictionary<K,V>{
     private final HashMap<K,V> dictionary = new HashMap<>();
@@ -28,5 +29,15 @@ public class MyDictionary<K,V> implements IDictionary<K,V>{
     @Override
     public void clear(){
         dictionary.clear();
+    }
+
+    @Override
+    public String toString(){
+        StringJoiner joiner = new StringJoiner("; ", "{", "}");
+        for(var e : dictionary.entrySet()){
+            joiner.add(e.getKey() + " -> " + e.getValue());
+        }
+
+        return joiner.toString();
     }
 }

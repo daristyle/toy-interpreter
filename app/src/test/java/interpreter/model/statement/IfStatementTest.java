@@ -4,6 +4,7 @@ import interpreter.exceptions.IfStatementException;
 import interpreter.exceptions.MyException;
 import interpreter.exceptions.UndefinedVariableException;
 import interpreter.model.ProgramState;
+import interpreter.model.TestProgramStates;
 import interpreter.model.expression.IExpression;
 import interpreter.model.expression.LogicExpression;
 import interpreter.model.expression.LogicOperation;
@@ -23,7 +24,7 @@ class IfStatementTest{
 
     @BeforeEach
     void setUp(){
-        programState = new ProgramState();
+        programState = TestProgramStates.emptyProgramState();
     }
 
     private static IExpression constant(boolean b){

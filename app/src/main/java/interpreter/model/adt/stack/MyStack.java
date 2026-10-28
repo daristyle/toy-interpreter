@@ -4,6 +4,7 @@ import interpreter.exceptions.StackException;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.StringJoiner;
 
 public class MyStack<T> implements IStack<T>{
     private final Deque<T> stack = new ArrayDeque<T>();
@@ -33,5 +34,15 @@ public class MyStack<T> implements IStack<T>{
     @Override
     public void clear(){
         stack.clear();
+    }
+
+    @Override
+    public String toString(){
+        StringJoiner joiner = new StringJoiner("| ", "{", "}");
+        for(var e : stack){
+            joiner.add(e.toString());
+        }
+
+        return joiner.toString();
     }
 }

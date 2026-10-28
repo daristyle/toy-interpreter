@@ -3,6 +3,7 @@ package interpreter.model.adt.list;
 import interpreter.exceptions.ListException;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class MyList<T> implements IList<T>{
     private final ArrayList<T> list = new ArrayList<>();
@@ -26,5 +27,15 @@ public class MyList<T> implements IList<T>{
     @Override
     public void clear(){
         list.clear();
+    }
+
+    @Override
+    public String toString(){
+        StringJoiner joiner = new StringJoiner("; ", "{", "}");
+        for(var e : list){
+            joiner.add(e.toString());
+        }
+
+        return joiner.toString();
     }
 }

@@ -3,6 +3,8 @@ package interpreter.model.adt.dictionary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyDictionaryTest{
@@ -76,5 +78,49 @@ class MyDictionaryTest{
         dictionary.clear();
         dictionary.put("a", 2);
         assertEquals(2, dictionary.get("a"));
+    }
+
+    @Test
+    void toStringOfEmptyDictionary(){
+        assertEquals("{}", dictionary.toString());
+    }
+
+    @Test
+    void toStringOfSingleEntry(){
+        dictionary.put("a", 1);
+        assertEquals("{a -> 1}", dictionary.toString());
+    }
+
+    @Test
+    void toStringShowsAllEntries(){
+        dictionary.put("a", 1);
+        dictionary.put("b", 2);
+        dictionary.put("c", 3);
+        String text = dictionary.toString();//no order is guaranteed
+        assertTrue(text.startsWith("{") && text.endsWith("}"));
+        assertEquals(Set.of("a -> 1", "b -> 2", "c -> 3"),
+                Set.of(text.substring(1, text.length() - 1).split("; ")));
+    }
+
+    @Test
+    void toStringShowsOverwrittenValue(){
+        dictionary.put("a", 1);
+        dictionary.put("a", 2);
+        assertEquals("{a -> 2}", dictionary.toString());
+    }
+
+    @Test
+    void toStringReflectsRemove(){
+        dictionary.put("a", 1);
+        dictionary.put("b", 2);
+        dictionary.remove("a");
+        assertEquals("{b -> 2}", dictionary.toString());
+    }
+
+    @Test
+    void toStringAfterClear(){
+        dictionary.put("a", 1);
+        dictionary.clear();
+        assertEquals("{}", dictionary.toString());
     }
 }
