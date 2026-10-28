@@ -1,7 +1,7 @@
 package interpreter.exceptions;
 
-public class IfStatementException extends RuntimeException {
-  public IfStatementException(String message) {
-    super(message);
-  }
+public class IfStatementException extends StatementException{
+    public IfStatementException(String message){
+        super(message);
+    }
 }

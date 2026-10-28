@@ -1,9 +1,16 @@
 package interpreter.model.statement;
 
-public record NoopStatement() implements IStatement{
+import interpreter.exceptions.MyException;
+import interpreter.model.ProgramState;
+
+public record NoOperationStatement() implements IStatement{
+    @Override
+    public ProgramState execute(ProgramState state){
+        return state;
+    }
 
     @Override
     public String toString(){
-        return "noop";
+        return " ";
     }
 }

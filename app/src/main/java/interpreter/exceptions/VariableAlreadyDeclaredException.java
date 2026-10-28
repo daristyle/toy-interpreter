@@ -1,7 +1,7 @@
 package interpreter.exceptions;
 
-public class VariableAlreadyDeclaredException extends RuntimeException {
-  public VariableAlreadyDeclaredException(String message) {
-    super(message);
-  }
+public class VariableAlreadyDeclaredException extends StatementException{
+    public VariableAlreadyDeclaredException(String message){
+        super(message);
+    }
 }
