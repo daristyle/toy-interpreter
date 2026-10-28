@@ -26,6 +26,7 @@ public class ConsoleView implements IView{
 
     private void printState(ProgramState state){
         System.out.println(state);
+        System.out.println("---------------------------------------");
     }
 
     private void printMainMenu(){
@@ -43,18 +44,18 @@ public class ConsoleView implements IView{
         try{
             int choice = Integer.parseInt(in.nextLine().trim());
             if(choice <= 0 || choice > examples.length){
-                System.out.println("Invalid choice");
+                System.out.println("Invalid choice!");
             }else{
                 selected = choice - 1;
             }
         }catch (NumberFormatException e){
-            System.out.println("Invalid choice");
+            System.out.println("Invalid choice!");
         }
     }
 
     private void runProgram() throws MyException{
         if(selected < 0 || selected >= examples.length){
-            System.out.println("Select a program first");
+            System.out.println("Select a program first!");
             return;
         }
         System.out.println("Running Program " + (selected + 1) + ": " + examples[selected]);

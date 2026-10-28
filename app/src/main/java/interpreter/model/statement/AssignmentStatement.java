@@ -24,6 +24,6 @@ public record AssignmentStatement(String name, IExpression expression) implement
 
     @Override
     public String toString() {
-        return name + "  = " + expression;
+        return name + " = " + expression;
     }
 }

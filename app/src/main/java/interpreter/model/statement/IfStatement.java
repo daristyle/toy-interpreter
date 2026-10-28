@@ -26,6 +26,6 @@ public record IfStatement(IExpression condition, IStatement thenS, IStatement el
 
     @Override
     public String toString(){
-        return "if " + condition +  " then " + thenS + " else " + elseS;
+        return "(if " + condition +  " then " + thenS + " else " + elseS + ")";
     }
 }

@@ -38,7 +38,7 @@ public class MyStack<T> implements IStack<T>{
 
     @Override
     public String toString(){
-        StringJoiner joiner = new StringJoiner("| ", "{", "}");
+        StringJoiner joiner = new StringJoiner(" | ", "{", "}");
         for(var e : stack){
             joiner.add(e.toString());
         }
