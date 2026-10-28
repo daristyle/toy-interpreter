@@ -16,8 +16,8 @@ public class ProgramState{
     private final IList<IValue> outList;
     private final IStatement originalProgram;
 
-    ProgramState(IStack<IStatement> execStack, IDictionary<String, IValue> symTable, IList<IValue> outList,
-                 IStatement originalProgram){
+    public ProgramState(IStack<IStatement> execStack, IDictionary<String, IValue> symTable, IList<IValue> outList,
+                        IStatement originalProgram){
         this.execStack = execStack;
         this.symTable = symTable;
         this.outList = outList;
