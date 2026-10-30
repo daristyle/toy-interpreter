@@ -134,7 +134,7 @@ class ControllerTest{
 
         assertEquals(List.of(
                 "ExecStack: {(print(1); print(2))}\nSymTable: {}\nOutList: {}",
-                "ExecStack: {print(1)| print(2)}\nSymTable: {}\nOutList: {}",
+                "ExecStack: {print(1) | print(2)}\nSymTable: {}\nOutList: {}",
                 "ExecStack: {print(2)}\nSymTable: {}\nOutList: {1}",
                 "ExecStack: {}\nSymTable: {}\nOutList: {1; 2}"
         ), displayed);

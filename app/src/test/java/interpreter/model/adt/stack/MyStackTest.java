@@ -97,7 +97,7 @@ class MyStackTest{
         stack.push(1);
         stack.push(2);
         stack.push(3);
-        assertEquals("{3| 2| 1}", stack.toString());
+        assertEquals("{3 | 2 | 1}", stack.toString());
     }
 
     @Test
@@ -106,7 +106,7 @@ class MyStackTest{
         stack.push(2);
         stack.push(3);
         stack.pop();
-        assertEquals("{2| 1}", stack.toString());
+        assertEquals("{2 | 1}", stack.toString());
     }
 
     @Test

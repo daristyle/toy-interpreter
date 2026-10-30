@@ -127,10 +127,19 @@ public class ConsoleView implements IView{
                 new PrintStatement(new VariableExpression("v")),
         };
 
+        IStatement[] statements4 = new IStatement[]{
+                new VariableDeclarationStatement(new BoolType(), "a"),
+                new AssignmentStatement("a",
+                        new ValueExpression(new IntValue(2))
+                ),
+                new PrintStatement(new VariableExpression("a")),
+        };
+
         examples = new IStatement[]{
                 compound(statements1),
                 compound(statements2),
                 compound(statements3),
+                compound(statements4),
         };
     }
 

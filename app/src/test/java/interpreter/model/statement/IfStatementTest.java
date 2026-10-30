@@ -82,7 +82,7 @@ class IfStatementTest{
 
     @Test
     void toStringShowsAllParts(){
-        assertEquals("if p then print(1) else print(2)",
+        assertEquals("(if p then print(1) else print(2))",
                 new IfStatement(new VariableExpression("p"), thenS, elseS).toString());
     }
 }

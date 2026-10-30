@@ -120,7 +120,7 @@ class ProgramStateTest{
     void toStringShowsExecStackTopFirst() throws MyException{
         ProgramState programState = newProgramState(new CompoundStatement(printOne, printTwo));
         programState.getExecStack().pop().execute(programState);
-        assertEquals("ExecStack: {print(1)| print(2)}\nSymTable: {}\nOutList: {}", programState.toString());
+        assertEquals("ExecStack: {print(1) | print(2)}\nSymTable: {}\nOutList: {}", programState.toString());
     }
 
     @Test
