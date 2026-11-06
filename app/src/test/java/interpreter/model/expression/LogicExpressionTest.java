@@ -42,28 +42,28 @@ class LogicExpressionTest{
             "OR, false, true, true",
             "OR, false, false, false",
     })
-    void evaluatesTruthTable(LogicOperation op, boolean left, boolean right, boolean expected) throws ExpressionException{
+    void evaluatesTruthTable(LogicOperator op, boolean left, boolean right, boolean expected) throws ExpressionException{
         assertEquals(new BoolValue(expected), new LogicExpression(op, constant(left), constant(right)).evaluate(symTable));
     }
 
     @Test
     void nonBoolFirstOperandThrows(){
         LogicException e = assertThrows(LogicException.class,
-                () -> new LogicExpression(LogicOperation.AND, constant(1), constant(true)).evaluate(symTable));
+                () -> new LogicExpression(LogicOperator.AND, constant(1), constant(true)).evaluate(symTable));
         assertEquals("First operand must be boolean", e.getMessage());
     }
 
     @Test
     void nonBoolSecondOperandThrows(){
         LogicException e = assertThrows(LogicException.class,
-                () -> new LogicExpression(LogicOperation.OR, constant(true), constant(1)).evaluate(symTable));
+                () -> new LogicExpression(LogicOperator.OR, constant(true), constant(1)).evaluate(symTable));
         assertEquals("Second operand must be boolean", e.getMessage());
     }
 
     @Test
     void firstOperandIsCheckedBeforeSecond(){
         LogicException e = assertThrows(LogicException.class,
-                () -> new LogicExpression(LogicOperation.AND, constant(0), constant(1)).evaluate(symTable));
+                () -> new LogicExpression(LogicOperator.AND, constant(0), constant(1)).evaluate(symTable));
         assertEquals("First operand must be boolean", e.getMessage());
     }
 
@@ -71,55 +71,55 @@ class LogicExpressionTest{
     void evaluatesVariables() throws ExpressionException{
         symTable.put("p", new BoolValue(true));
         symTable.put("q", new BoolValue(false));
-        IExpression expr = new LogicExpression(LogicOperation.OR, new VariableExpression("p"), new VariableExpression("q"));
+        IExpression expr = new LogicExpression(LogicOperator.OR, new VariableExpression("p"), new VariableExpression("q"));
         assertEquals(new BoolValue(true), expr.evaluate(symTable));
     }
 
     @Test
     void undefinedVariableOperandPropagates(){
-        IExpression expr = new LogicExpression(LogicOperation.AND, constant(true), new VariableExpression("p"));
+        IExpression expr = new LogicExpression(LogicOperator.AND, constant(true), new VariableExpression("p"));
         assertThrows(UndefinedVariableException.class, () -> expr.evaluate(symTable));
     }
 
     @Test
     void intVariableOperandThrows(){
         symTable.put("p", new IntValue(1));
-        IExpression expr = new LogicExpression(LogicOperation.AND, new VariableExpression("p"), constant(true));
+        IExpression expr = new LogicExpression(LogicOperator.AND, new VariableExpression("p"), constant(true));
         assertThrows(LogicException.class, () -> expr.evaluate(symTable));
     }
 
     @Test
     void evaluatesNestedExpressions() throws ExpressionException{
         // (true and false) or (false or true) = true
-        IExpression expr = new LogicExpression(LogicOperation.OR,
-                new LogicExpression(LogicOperation.AND, constant(true), constant(false)),
-                new LogicExpression(LogicOperation.OR, constant(false), constant(true)));
+        IExpression expr = new LogicExpression(LogicOperator.OR,
+                new LogicExpression(LogicOperator.AND, constant(true), constant(false)),
+                new LogicExpression(LogicOperator.OR, constant(false), constant(true)));
         assertEquals(new BoolValue(true), expr.evaluate(symTable));
     }
 
     @Test
     void arithmeticSubexpressionIsNotBoolean(){
-        IExpression expr = new LogicExpression(LogicOperation.AND, constant(true),
-                new ArithmeticExpression(ArithmeticOperation.ADD, constant(1), constant(2)));
+        IExpression expr = new LogicExpression(LogicOperator.AND, constant(true),
+                new ArithmeticExpression(ArithmeticOperator.ADD, constant(1), constant(2)));
         assertThrows(LogicException.class, () -> expr.evaluate(symTable));
     }
 
     @ParameterizedTest
     @CsvSource({"AND, and", "OR, or"})
-    void operationToStringIsSymbol(LogicOperation op, String symbol){
+    void operationToStringIsSymbol(LogicOperator op, String symbol){
         assertEquals(symbol, op.toString());
     }
 
     @Test
     void toStringIsParenthesizedInfix(){
-        assertEquals("(true and false)", new LogicExpression(LogicOperation.AND, constant(true), constant(false)).toString());
+        assertEquals("(true and false)", new LogicExpression(LogicOperator.AND, constant(true), constant(false)).toString());
     }
 
     @Test
     void toStringOfNestedExpression(){
-        IExpression expr = new LogicExpression(LogicOperation.OR,
+        IExpression expr = new LogicExpression(LogicOperator.OR,
                 new VariableExpression("p"),
-                new LogicExpression(LogicOperation.AND, constant(true), new VariableExpression("q")));
+                new LogicExpression(LogicOperator.AND, constant(true), new VariableExpression("q")));
         assertEquals("(p or (true and q))", expr.toString());
     }
 }

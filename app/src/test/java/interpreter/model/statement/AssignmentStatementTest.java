@@ -7,7 +7,7 @@ import interpreter.exceptions.UndefinedVariableException;
 import interpreter.model.ProgramState;
 import interpreter.model.TestProgramStates;
 import interpreter.model.expression.ArithmeticExpression;
-import interpreter.model.expression.ArithmeticOperation;
+import interpreter.model.expression.ArithmeticOperator;
 import interpreter.model.expression.IExpression;
 import interpreter.model.expression.ValueExpression;
 import interpreter.model.expression.VariableExpression;
@@ -75,7 +75,7 @@ class AssignmentStatementTest{
         // x = x + 1
         programState.getSymTable().put("x", new IntValue(4));
         new AssignmentStatement("x",
-                new ArithmeticExpression(ArithmeticOperation.ADD, new VariableExpression("x"), constant(1))).execute(programState);
+                new ArithmeticExpression(ArithmeticOperator.ADD, new VariableExpression("x"), constant(1))).execute(programState);
         assertEquals(new IntValue(5), programState.getSymTable().get("x"));
     }
 
@@ -120,7 +120,7 @@ class AssignmentStatementTest{
     void expressionErrorPropagatesAndKeepsOldValue(){
         programState.getSymTable().put("x", new IntValue(3));
         assertThrows(ArithmeticException.class, () -> new AssignmentStatement("x",
-                new ArithmeticExpression(ArithmeticOperation.DIV, constant(1), constant(0))).execute(programState));
+                new ArithmeticExpression(ArithmeticOperator.DIV, constant(1), constant(0))).execute(programState));
         assertEquals(new IntValue(3), programState.getSymTable().get("x"));
     }
 }

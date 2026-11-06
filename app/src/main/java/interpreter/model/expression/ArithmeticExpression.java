@@ -6,9 +6,7 @@ import interpreter.model.adt.dictionary.IDictionary;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
 
-import java.beans.Expression;
-
-public record ArithmeticExpression(ArithmeticOperation op, IExpression left, IExpression right) implements IExpression{
+public record ArithmeticExpression(ArithmeticOperator op, IExpression left, IExpression right) implements IExpression{
     @Override
     public IntValue evaluate(IDictionary<String, IValue> symTable) throws ExpressionException{
         if(!(left.evaluate(symTable) instanceof IntValue(int first)))

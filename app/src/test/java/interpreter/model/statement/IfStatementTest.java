@@ -7,7 +7,7 @@ import interpreter.model.ProgramState;
 import interpreter.model.TestProgramStates;
 import interpreter.model.expression.IExpression;
 import interpreter.model.expression.LogicExpression;
-import interpreter.model.expression.LogicOperation;
+import interpreter.model.expression.LogicOperator;
 import interpreter.model.expression.ValueExpression;
 import interpreter.model.expression.VariableExpression;
 import interpreter.model.value.BoolValue;
@@ -60,7 +60,7 @@ class IfStatementTest{
     void evaluatesConditionWithVariables() throws MyException{
         programState.getSymTable().put("p", new BoolValue(true));
         programState.getSymTable().put("q", new BoolValue(false));
-        new IfStatement(new LogicExpression(LogicOperation.AND,
+        new IfStatement(new LogicExpression(LogicOperator.AND,
                 new VariableExpression("p"), new VariableExpression("q")), thenS, elseS).execute(programState);
         assertSame(elseS, programState.getExecStack().pop());
     }

@@ -5,9 +5,8 @@ import interpreter.exceptions.LogicException;
 import interpreter.model.adt.dictionary.IDictionary;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IValue;
-import interpreter.model.value.IntValue;
 
-public record LogicExpression(LogicOperation op, IExpression left, IExpression right) implements IExpression{
+public record LogicExpression(LogicOperator op, IExpression left, IExpression right) implements IExpression{
     @Override
     public IValue evaluate(IDictionary<String, IValue> symTable) throws ExpressionException{
         if(!(left.evaluate(symTable) instanceof BoolValue(boolean first)))

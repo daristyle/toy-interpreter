@@ -45,42 +45,42 @@ class ArithmeticExpressionTest{
             "DIV, -7, 2, -3",
             "DIV, 0, 5, 0",
     })
-    void evaluatesOperation(ArithmeticOperation op, int left, int right, int expected) throws ExpressionException{
+    void evaluatesOperation(ArithmeticOperator op, int left, int right, int expected) throws ExpressionException{
         assertEquals(new IntValue(expected), new ArithmeticExpression(op, constant(left), constant(right)).evaluate(symTable));
     }
 
     @Test
     void divisionByZeroThrows(){
         ArithmeticException e = assertThrows(ArithmeticException.class,
-                () -> new ArithmeticExpression(ArithmeticOperation.DIV, constant(1), constant(0)).evaluate(symTable));
+                () -> new ArithmeticExpression(ArithmeticOperator.DIV, constant(1), constant(0)).evaluate(symTable));
         assertEquals("Division by zero", e.getMessage());
     }
 
     @Test
     void nonIntFirstOperandThrows(){
         ArithmeticException e = assertThrows(ArithmeticException.class,
-                () -> new ArithmeticExpression(ArithmeticOperation.ADD, constant(true), constant(1)).evaluate(symTable));
+                () -> new ArithmeticExpression(ArithmeticOperator.ADD, constant(true), constant(1)).evaluate(symTable));
         assertEquals("First operand must be an integer", e.getMessage());
     }
 
     @Test
     void nonIntSecondOperandThrows(){
         ArithmeticException e = assertThrows(ArithmeticException.class,
-                () -> new ArithmeticExpression(ArithmeticOperation.ADD, constant(1), constant(true)).evaluate(symTable));
+                () -> new ArithmeticExpression(ArithmeticOperator.ADD, constant(1), constant(true)).evaluate(symTable));
         assertEquals("Second operand must be an integer", e.getMessage());
     }
 
     @Test
     void firstOperandIsCheckedBeforeSecond(){
         ArithmeticException e = assertThrows(ArithmeticException.class,
-                () -> new ArithmeticExpression(ArithmeticOperation.ADD, constant(true), constant(false)).evaluate(symTable));
+                () -> new ArithmeticExpression(ArithmeticOperator.ADD, constant(true), constant(false)).evaluate(symTable));
         assertEquals("First operand must be an integer", e.getMessage());
     }
 
     @Test
     void typeErrorIsReportedForDivisionByZeroWithBoolOperand(){
         ArithmeticException e = assertThrows(ArithmeticException.class,
-                () -> new ArithmeticExpression(ArithmeticOperation.DIV, constant(true), constant(0)).evaluate(symTable));
+                () -> new ArithmeticExpression(ArithmeticOperator.DIV, constant(true), constant(0)).evaluate(symTable));
         assertEquals("First operand must be an integer", e.getMessage());
     }
 
@@ -88,62 +88,62 @@ class ArithmeticExpressionTest{
     void evaluatesVariables() throws ExpressionException{
         symTable.put("a", new IntValue(6));
         symTable.put("b", new IntValue(4));
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.SUB,
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.SUB,
                 new VariableExpression("a"), new VariableExpression("b"));
         assertEquals(new IntValue(2), expr.evaluate(symTable));
     }
 
     @Test
     void undefinedVariableOperandPropagates(){
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.ADD, new VariableExpression("a"), constant(1));
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.ADD, new VariableExpression("a"), constant(1));
         assertThrows(UndefinedVariableException.class, () -> expr.evaluate(symTable));
     }
 
     @Test
     void boolVariableOperandThrows(){
         symTable.put("a", new BoolValue(true));
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.ADD, constant(1), new VariableExpression("a"));
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.ADD, constant(1), new VariableExpression("a"));
         assertThrows(ArithmeticException.class, () -> expr.evaluate(symTable));
     }
 
     @Test
     void evaluatesNestedExpressions() throws ExpressionException{
         // (2 + 3) * (10 / 2) = 25
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.MUL,
-                new ArithmeticExpression(ArithmeticOperation.ADD, constant(2), constant(3)),
-                new ArithmeticExpression(ArithmeticOperation.DIV, constant(10), constant(2)));
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.MUL,
+                new ArithmeticExpression(ArithmeticOperator.ADD, constant(2), constant(3)),
+                new ArithmeticExpression(ArithmeticOperator.DIV, constant(10), constant(2)));
         assertEquals(new IntValue(25), expr.evaluate(symTable));
     }
 
     @Test
     void divisionByZeroInNestedExpressionThrows(){
         // 1 / (2 - 2)
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.DIV, constant(1),
-                new ArithmeticExpression(ArithmeticOperation.SUB, constant(2), constant(2)));
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.DIV, constant(1),
+                new ArithmeticExpression(ArithmeticOperator.SUB, constant(2), constant(2)));
         assertThrows(ArithmeticException.class, () -> expr.evaluate(symTable));
     }
 
     @Test
     void additionOverflowWrapsAround() throws ExpressionException{
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.ADD, constant(Integer.MAX_VALUE), constant(1));
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.ADD, constant(Integer.MAX_VALUE), constant(1));
         assertEquals(new IntValue(Integer.MIN_VALUE), expr.evaluate(symTable));
     }
 
     @ParameterizedTest
     @CsvSource({"ADD, +", "SUB, -", "MUL, *", "DIV, /"})
-    void operationToStringIsSymbol(ArithmeticOperation op, String symbol){
+    void operationToStringIsSymbol(ArithmeticOperator op, String symbol){
         assertEquals(symbol, op.toString());
     }
 
     @Test
     void toStringIsParenthesizedInfix(){
-        assertEquals("(1 + 2)", new ArithmeticExpression(ArithmeticOperation.ADD, constant(1), constant(2)).toString());
+        assertEquals("(1 + 2)", new ArithmeticExpression(ArithmeticOperator.ADD, constant(1), constant(2)).toString());
     }
 
     @Test
     void toStringOfNestedExpression(){
-        IExpression expr = new ArithmeticExpression(ArithmeticOperation.MUL,
-                new ArithmeticExpression(ArithmeticOperation.SUB, new VariableExpression("a"), constant(2)),
+        IExpression expr = new ArithmeticExpression(ArithmeticOperator.MUL,
+                new ArithmeticExpression(ArithmeticOperator.SUB, new VariableExpression("a"), constant(2)),
                 constant(3));
         assertEquals("((a - 2) * 3)", expr.toString());
     }

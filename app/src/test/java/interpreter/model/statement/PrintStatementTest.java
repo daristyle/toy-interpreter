@@ -6,7 +6,7 @@ import interpreter.exceptions.UndefinedVariableException;
 import interpreter.model.ProgramState;
 import interpreter.model.TestProgramStates;
 import interpreter.model.expression.ArithmeticExpression;
-import interpreter.model.expression.ArithmeticOperation;
+import interpreter.model.expression.ArithmeticOperator;
 import interpreter.model.expression.ValueExpression;
 import interpreter.model.expression.VariableExpression;
 import interpreter.model.value.BoolValue;
@@ -51,7 +51,7 @@ class PrintStatementTest{
 
     @Test
     void printsEvaluatedExpression() throws MyException{
-        new PrintStatement(new ArithmeticExpression(ArithmeticOperation.MUL,
+        new PrintStatement(new ArithmeticExpression(ArithmeticOperator.MUL,
                 new ValueExpression(new IntValue(6)), new ValueExpression(new IntValue(7)))).execute(programState);
         assertEquals(new IntValue(42), programState.getOutList().get(0));
     }
@@ -83,7 +83,7 @@ class PrintStatementTest{
 
     @Test
     void expressionErrorThrowsAndPrintsNothing(){
-        assertThrows(ArithmeticException.class, () -> new PrintStatement(new ArithmeticExpression(ArithmeticOperation.DIV,
+        assertThrows(ArithmeticException.class, () -> new PrintStatement(new ArithmeticExpression(ArithmeticOperator.DIV,
                 new ValueExpression(new IntValue(1)), new ValueExpression(new IntValue(0)))).execute(programState));
         assertEquals(0, programState.getOutList().size());
     }

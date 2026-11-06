@@ -6,7 +6,7 @@ import interpreter.exceptions.MyException;
 import interpreter.exceptions.RepositoryException;
 import interpreter.model.ProgramState;
 import interpreter.model.expression.ArithmeticExpression;
-import interpreter.model.expression.ArithmeticOperation;
+import interpreter.model.expression.ArithmeticOperator;
 import interpreter.model.expression.IExpression;
 import interpreter.model.expression.ValueExpression;
 import interpreter.model.expression.VariableExpression;
@@ -116,7 +116,7 @@ class ControllerTest{
     void allStepsStopsAtFirstErrorAndKeepsEarlierOutput() throws MyException{
         Controller controller = newController(false);
         controller.loadProgram(compound(print(1),
-                new PrintStatement(new ArithmeticExpression(ArithmeticOperation.DIV, constant(1), constant(0))),
+                new PrintStatement(new ArithmeticExpression(ArithmeticOperator.DIV, constant(1), constant(0))),
                 print(3)));
 
         assertThrows(ArithmeticException.class, controller::allSteps);

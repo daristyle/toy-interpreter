@@ -5,7 +5,7 @@ import interpreter.controller.IController;
 import interpreter.exceptions.MyException;
 import interpreter.model.ProgramState;
 import interpreter.model.expression.ArithmeticExpression;
-import interpreter.model.expression.ArithmeticOperation;
+import interpreter.model.expression.ArithmeticOperator;
 import interpreter.model.expression.ValueExpression;
 import interpreter.model.expression.VariableExpression;
 import interpreter.model.statement.*;
@@ -91,10 +91,10 @@ public class ConsoleView implements IView{
                 new VariableDeclarationStatement(new IntType(),"b"),
                 new AssignmentStatement("a",
                         new ArithmeticExpression(
-                                ArithmeticOperation.ADD,
+                                ArithmeticOperator.ADD,
                                 new ValueExpression(new IntValue(2)),
                                 new ArithmeticExpression(
-                                        ArithmeticOperation.MUL,
+                                        ArithmeticOperator.MUL,
                                         new ValueExpression(new IntValue(3)),
                                         new ValueExpression(new IntValue(5))
                                 )
@@ -102,7 +102,7 @@ public class ConsoleView implements IView{
                 ),
                 new AssignmentStatement("b",
                         new ArithmeticExpression(
-                                ArithmeticOperation.ADD,
+                                ArithmeticOperator.ADD,
                                 new VariableExpression("a"),
                                 new ValueExpression(new IntValue(1))
                         )
