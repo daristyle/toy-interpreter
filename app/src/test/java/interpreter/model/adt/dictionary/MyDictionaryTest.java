@@ -3,6 +3,7 @@ package interpreter.model.adt.dictionary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -122,5 +123,29 @@ class MyDictionaryTest{
         dictionary.put("a", 1);
         dictionary.clear();
         assertEquals("{}", dictionary.toString());
+    }
+
+    @Test
+    void toMapReturnsAllEntries(){
+        assertEquals(Map.of(), dictionary.toMap());
+
+        dictionary.put("a", 1);
+        dictionary.put("b", 2);
+        dictionary.put("a", 3);
+
+        assertEquals(Map.of("a", 3, "b", 2), dictionary.toMap());
+        assertTrue(dictionary.containsKey("b"));
+    }
+
+    @Test
+    void toMapIsAnIndependentSnapshot(){
+        dictionary.put("a", 1);
+        Map<String, Integer> snapshot = dictionary.toMap();
+
+        dictionary.put("b", 2);
+        dictionary.remove("a");
+
+        assertEquals(Map.of("a", 1), snapshot);
+        assertThrows(UnsupportedOperationException.class, () -> snapshot.put("c", 3));
     }
 }

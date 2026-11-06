@@ -3,6 +3,7 @@ package interpreter.model.adt.list;
 import interpreter.exceptions.ListException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class MyList<T> implements IList<T>{
@@ -27,6 +28,11 @@ public class MyList<T> implements IList<T>{
     @Override
     public void clear(){
         list.clear();
+    }
+
+    @Override
+    public List<T> toList(){
+        return List.copyOf(list);
     }
 
     @Override

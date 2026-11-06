@@ -4,6 +4,8 @@ import interpreter.exceptions.StackException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyStackTest{
@@ -114,5 +116,28 @@ class MyStackTest{
         stack.push(1);
         stack.clear();
         assertEquals("{}", stack.toString());
+    }
+
+    @Test
+    void toListReturnsElementsTopFirstWithoutChangingStack() throws StackException{
+        assertEquals(List.of(), stack.toList());
+
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+
+        assertEquals(List.of(3, 2, 1), stack.toList());
+        assertEquals(3, stack.pop());
+    }
+
+    @Test
+    void toListIsAnIndependentSnapshot(){
+        stack.push(1);
+        List<Integer> snapshot = stack.toList();
+
+        stack.push(2);
+
+        assertEquals(List.of(1), snapshot);
+        assertThrows(UnsupportedOperationException.class, () -> snapshot.add(3));
     }
 }

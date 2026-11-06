@@ -2,9 +2,7 @@ package interpreter.model.adt.stack;
 
 import interpreter.exceptions.StackException;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class MyStack<T> implements IStack<T>{
     private final Deque<T> stack = new ArrayDeque<T>();
@@ -34,6 +32,11 @@ public class MyStack<T> implements IStack<T>{
     @Override
     public void clear(){
         stack.clear();
+    }
+
+    @Override
+    public List<T> toList(){
+        return List.copyOf(stack);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package interpreter.model.adt.dictionary;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringJoiner;
 
 public class MyDictionary<K,V> implements IDictionary<K,V>{
@@ -29,6 +30,11 @@ public class MyDictionary<K,V> implements IDictionary<K,V>{
     @Override
     public void clear(){
         dictionary.clear();
+    }
+
+    @Override
+    public Map<K, V> toMap(){
+        return Map.copyOf(dictionary);
     }
 
     @Override

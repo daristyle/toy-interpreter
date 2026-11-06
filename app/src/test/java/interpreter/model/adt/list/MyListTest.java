@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyListTest{
@@ -118,5 +120,28 @@ class MyListTest{
         list.add("a");
         list.clear();
         assertEquals("{}", list.toString());
+    }
+
+    @Test
+    void toListReturnsElementsInInsertionOrder(){
+        assertEquals(List.of(), list.toList());
+
+        list.add("b");
+        list.add("a");
+        list.add("b");
+
+        assertEquals(List.of("b", "a", "b"), list.toList());
+        assertEquals(3, list.size());
+    }
+
+    @Test
+    void toListIsAnIndependentSnapshot(){
+        list.add("a");
+        List<String> snapshot = list.toList();
+
+        list.add("b");
+
+        assertEquals(List.of("a"), snapshot);
+        assertThrows(UnsupportedOperationException.class, () -> snapshot.add("c"));
     }
 }
