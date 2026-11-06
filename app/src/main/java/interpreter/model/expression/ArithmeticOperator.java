@@ -1,11 +1,10 @@
 package interpreter.model.expression;
 
-public enum LogicOperation{
-    AND("and"), OR("or");
+public enum ArithmeticOperator{
+    ADD("+"), SUB("-"), MUL("*"), DIV("/");
+    private String symbol;
 
-    private final String symbol;
-
-    LogicOperation(String symbol){
+    ArithmeticOperator(String symbol){
         this.symbol = symbol;
     }
 
